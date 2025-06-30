@@ -1,0 +1,38 @@
+# Binaries and build artifacts
+/app
+app
+*.exe
+*.out
+*.test
+
+# Go folders
+bin/
+pkg/
+coverage.out
+
+# Logs
+*.log
+
+# Docker stuff
+*.tar
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Archivos temporales o de pruebas
+*.tmp
+
+# Variables de entorno y secretos
+.env
+.env.*
+
+# Docker compose override files (local config)
+docker-compose.override.yml
+
+ consolidado_data_prueba.csv
