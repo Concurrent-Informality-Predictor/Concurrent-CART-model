@@ -2,32 +2,54 @@ version: "3"
 services:
   nodo1:
     build: .
+    command: ["./app"]
     ports:
       - "8081:8081"
     environment:
       - PORT=8081
-      - REDIS_ADDR=redis:6379   
+      - REDIS_ADDR=redis:6379
     depends_on:
       - redis
+
   nodo2:
     build: .
+    command: ["./app"]
     ports:
       - "8082:8082"
     environment:
       - PORT=8082
-      - REDIS_ADDR=redis:6379  
+      - REDIS_ADDR=redis:6379
     depends_on:
       - redis
+
   nodo3:
     build: .
+    command: ["./app"]
     ports:
       - "8083:8083"
     environment:
       - PORT=8083
-      - REDIS_ADDR=redis:6379 
+      - REDIS_ADDR=redis:6379
     depends_on:
       - redis
+
+  gateway:
+    build: .
+    command: ["./gateway"]
+    ports:
+      - "8000:8000"
+    environment:
+      - NODES=http://nodo1:8081,http://nodo2:8082,http://nodo3:8083
+    depends_on:
+      - nodo1
+      - nodo2
+      - nodo3
+
   redis:
     image: redis:latest
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/data
+volumes:
+  redis_data:

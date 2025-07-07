@@ -44,8 +44,6 @@ func (s *Server) Router() *mux.Router {
 	r.HandleFunc("/api/model/info", s.handleModelInfo).Methods("GET")
 	r.HandleFunc("/api/model/train", s.handleModelTrain).Methods("POST", "OPTIONS")
 	r.HandleFunc("/api/model/validate", s.handleModelValidation).Methods("POST", "OPTIONS")
-
-	// Start result processor
 	go s.processResults()
 
 	return r

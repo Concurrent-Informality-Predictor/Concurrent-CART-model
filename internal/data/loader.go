@@ -113,7 +113,7 @@ func (l *Loader) LoadTrainingData() (*model.TrainingData, error) {
 	// Parse data with random sample limit for faster training
 	var features [][]float64
 	var labels []float64
-	maxSamples := 600000 // Use 600,000 random samples for training
+	maxSamples := 1000000 
 
 	// Create random indices for sampling
 	totalRecords := len(records) - 1 // Exclude header

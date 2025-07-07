@@ -41,17 +41,14 @@ func main() {
 	predictionChan := make(chan *model.PredictionRequest, 100)
 	resultChan := make(chan *model.PredictionResult, 100)
 
-	// WaitGroup for goroutines
 	var wg sync.WaitGroup
 
-	// Start training goroutine
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
 		mlModel.StartTrainingWorker(ctx, trainingChan, redisClient)
 	}()
 
-	// Start prediction goroutines (multiple workers)
 	numPredictionWorkers := 3
 	for i := 0; i < numPredictionWorkers; i++ {
 		wg.Add(1)
@@ -61,7 +58,6 @@ func main() {
 		}(i)
 	}
 
-	// Initialize HTTP server
 	httpServer := server.NewServer(predictionChan, resultChan, mlModel)
 
 	// Start HTTP server in goroutine
